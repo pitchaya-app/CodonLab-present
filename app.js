@@ -88,3 +88,27 @@ if (lightbox) {
     }
   });
 }
+
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+fullscreenBtn.addEventListener("click", async () => {
+  try {
+    if (!document.fullscreenElement) {
+      await document.documentElement.requestFullscreen();
+    } else {
+      await document.exitFullscreen();
+    }
+  } catch (error) {
+    console.error("Fullscreen error:", error);
+  }
+});
+
+document.addEventListener("fullscreenchange", () => {
+  if (document.fullscreenElement) {
+    fullscreenBtn.innerHTML = "⛶ <span>ออกจากเต็มหน้าจอ</span>";
+    fullscreenBtn.title = "ออกจากเต็มหน้าจอ";
+  } else {
+    fullscreenBtn.innerHTML = "⛶ <span>เต็มหน้าจอ</span>";
+    fullscreenBtn.title = "เต็มหน้าจอ";
+  }
+});
